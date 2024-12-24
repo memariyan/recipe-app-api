@@ -10,4 +10,41 @@ services:
       - ./app:/app
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres
+    networks:
+      - app
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=dev_db
+      - DB_USER=dev_user
+      - DB_PASSWORD=123
 
+  postgres:
+    image: postgres:latest
+    networks:
+      - postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - dev-db-data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_DB=dev_db
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=123
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    ports:
+      - "28080:8080"
+    networks:
+      - postgres
+
+networks:
+   postgres : {}
+   app : {}
+   adminer : {}
+
+volumes:
+  dev-db-data:
