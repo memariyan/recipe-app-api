@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  test-list:
+  test-lint:
     name: Test & Lint
     runs-on: ubuntu-22.04
     steps:
