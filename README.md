@@ -4,6 +4,9 @@ Recipe API Project
 setup django :
 docker compose run --rm app sh -c "django-admin startproject app ."
 
+setup core module :
+docker compose run --rm app sh -c "django-admin startapp core"
+
 test :
 docker compose run --rm app sh -c "python manage.py test"
 
