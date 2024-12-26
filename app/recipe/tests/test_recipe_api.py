@@ -9,7 +9,8 @@ from core.models import Recipe
 from recipe.serializers import RecipeSerializer
 from user.tests.test_user_api import create_user
 
-RECIPE_URL=reverse("recipe:recipe-list")
+RECIPE_URL = reverse("recipe:recipe-list")
+
 
 def create_recipe(user, **params):
     defaults = {
@@ -22,6 +23,7 @@ def create_recipe(user, **params):
     defaults.update(params)
     return Recipe.objects.create(user=user, **defaults)
 
+
 class PublicRecipeApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -29,6 +31,7 @@ class PublicRecipeApiTests(TestCase):
     def test_auth_required(self):
         res = self.client.get(RECIPE_URL)
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
 class PrivateRecipeApiTests(TestCase):
     def setUp(self):
