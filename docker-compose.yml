@@ -43,10 +43,23 @@ services:
     networks:
       - postgres
 
+  prometheus:
+    image: prom/prometheus
+    depends_on:
+      - app
+    volumes:
+      - .config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - app
+      - prometheus
+
 networks:
    postgres : {}
    app : {}
    adminer : {}
+   prometheus : {}
 
 volumes:
   dev-db-data:

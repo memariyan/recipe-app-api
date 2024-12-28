@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+from core.views import metrics_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
@@ -29,6 +31,7 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name='api-schema'),
         name='api-docs'
     ),
+    path('api/metrics/', metrics_view, name='metrics'),
     path(
         'api/users/',
         include('user.urls')
